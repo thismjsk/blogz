@@ -21,8 +21,8 @@ class BlogHandler(webapp2.RequestHandler):
         """
 
         # TODO - filter the query so that only posts by the given user
-        query = Post.all().filter("author", self.user)
-        user_posts = query.run()
+        query = Post.all().filter("author",user).order("-created")
+        user_posts = query.fetch(limit=limit, offset=offset)
         return user_posts
 
     def get_user_by_name(self, username):
@@ -119,10 +119,10 @@ class BlogIndexHandler(BlogHandler):
 
 class NewPostHandler(BlogHandler):
 
-    def render_form(self, title="", body="", error=""):
+    def render_form(self, title="", body="", author="", error=""):
         """ Render the new post form with or without an error, based on parameters """
         t = jinja_env.get_template("newpost.html")
-        response = t.render(title=title, body=body, error=error)
+        response = t.render(title=title, body=body, author=author, error=error)
         self.response.out.write(response)
 
     def get(self):
@@ -132,6 +132,7 @@ class NewPostHandler(BlogHandler):
         """ Create a new blog post if possible. Otherwise, return with an error message """
         title = self.request.get("title")
         body = self.request.get("body")
+        author = self.request.get("author")
 
         if title and body:
 
