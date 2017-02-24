@@ -2,34 +2,22 @@
 
 {% block content %}
 
+<h1>Login</h1>
+<p class="error">{{ error }}</p>
 <form method='post'>
   <table>
     <tr>
       <td><label>Username</label></td>
-      <td><input name='username' type='text' value='' required/></td>
-      <td><span class='error'>(Put error message here)</span></td>
+      <td><input name='username' type='text' value='{{ username }}' required/></td>
     </tr>
     <tr>
       <td><label>Password</label></td>
-      <td><input name='password' type='password' value='' required/></td>
-      <td><span class='error'>(Put error message here)</span></td>
+      <td><input name='password' type='password' required/></td>
     </tr>
-    <tr>
-      <td><label>Verify</label></td>
-      <td><input name='verify' type='password' value='' required/></td>
-      <td><span class='error'>(Put error message here)</span></td>
-    </tr>
-    <tr>
-      <td><label>Email (optional)</label></td>
-      <td><input name='email' type='email' value=''/></td>
-      <td><span class='error'>(Put error message here)</span></td>
-    </tr>
-    <input='submit'>
-    <td>
-
   </table>
-
+  <input type='submit'>
 </form>
+<p><a href="/signup">Need an account?</a></p>
 
 
 

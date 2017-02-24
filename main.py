@@ -21,7 +21,9 @@ class BlogHandler(webapp2.RequestHandler):
         """
 
         # TODO - filter the query so that only posts by the given user
-        return None
+        query = Post.all().filter("author", self.user)
+        user_posts = query.run()
+        return user_posts
 
     def get_user_by_name(self, username):
         """ Get a user object from the db, based on their username """
@@ -189,7 +191,7 @@ class SignupHandler(BlogHandler):
         if not email:
             return ""
 
-        EMAIL_RE = re.compile(r"^[\S]+@[\S]+.[\S]+$")
+        EMAIL_RE = re.compile(r"^[\S]+@[\S]+\.[\S]+$")
         if EMAIL_RE.match(email):
             return email
 
